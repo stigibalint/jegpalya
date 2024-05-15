@@ -18,9 +18,14 @@ function createGrid() {
 }
 
 function placeGreenDivs() {
+    const usedIndexes = [];
     for (let i = 0; i < numberOfGreenDivs; i++) {
         let randomIndex;
-        randomIndex = Math.floor(Math.random() * totalCells);
+        do {
+            randomIndex = Math.floor(Math.random() * totalCells);
+        } while (cells[randomIndex].querySelector('.green') || usedIndexes.includes(randomIndex));
+        usedIndexes.push(randomIndex);
+
         const greenDiv = document.createElement('div');
         greenDiv.classList.add('green');
         greenDiv.textContent = i + 1;
@@ -28,11 +33,26 @@ function placeGreenDivs() {
     }
 }
 
+function placeYellowDivs() {
+    const usedIndexes = [];
+    for (let i = 0; i < numberOfYellowDivs; i++) {
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * totalCells);
+        } while (cells[randomIndex].querySelector('.green') || cells[randomIndex].querySelector('.yellow') || usedIndexes.includes(randomIndex));
+        usedIndexes.push(randomIndex);
+
+        const yellowDiv = document.createElement('div');
+        yellowDiv.classList.add('yellow');
+        cells[randomIndex].appendChild(yellowDiv);
+    }
+}
+
 function moveGreenDivs() {
     const greenDivs = document.querySelectorAll('.green');
     greenDivs.forEach(greenDiv => {
-        const currentCell = greenDiv.parentElement;
-        const currentCellIndex = cells.indexOf(currentCell);
+        let currentCell = greenDiv.parentElement;
+        let currentCellIndex = cells.indexOf(currentCell);
         let possibleMoves = [];
 
         if (currentCellIndex >= numberOfColumns && !cells[currentCellIndex - numberOfColumns].querySelector('.green')) {
@@ -60,19 +80,6 @@ function moveGreenDivs() {
     });
 }
 
-function placeYellowDivs() {
-    for (let i = 0; i < numberOfYellowDivs; i++) {
-        let randomIndex;
-        randomIndex = Math.floor(Math.random() * totalCells);
-        const yellowDiv = document.createElement('div');
-        yellowDiv.classList.add('yellow');
-        yellowDiv.addEventListener('click', (event) => {
-            const clickedCellIndex = cells.indexOf(event.target.parentElement);
-            removeGreenDivFromCell(clickedCellIndex);
-        });
-        cells[randomIndex].appendChild(yellowDiv);
-    }
-}
 
 
 stepButton.addEventListener('click', () => {

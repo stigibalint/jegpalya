@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(20, 1fr);
     grid-auto-rows: 1fr;
-    gap: 1px;
+    gap: 5px;
     width: 100%;
     height: 100%;
 }
@@ -20,13 +20,16 @@
     width: 100%;
     height: 100%;
     text-align: center;
+    font-weight: bold;
     align-content: center;
+   
 }
 
 .yellow {
     background-color: yellow;
     width: 100%;
     height: 100%;
+    border-radius: 50%;
 }
 
 #stepButton {
@@ -38,4 +41,7 @@
     padding: 10px;
     margin-bottom: 25px;
     cursor: pointer;
+}
+body{
+    background-color: rgb(215, 218, 221);
 }
