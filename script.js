@@ -16,7 +16,6 @@ function createGrid() {
         cells.push(cell);
     }
 }
-
 function placeGreenDivs() {
     const usedIndexes = [];
     for (let i = 0; i < numberOfGreenDivs; i++) {
@@ -29,6 +28,9 @@ function placeGreenDivs() {
         const greenDiv = document.createElement('div');
         greenDiv.classList.add('green');
         greenDiv.textContent = i + 1;
+        greenDiv.addEventListener('click', () => {
+            showPath(greenDiv);
+        });
         cells[randomIndex].appendChild(greenDiv);
     }
 }
